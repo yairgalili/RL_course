@@ -10,9 +10,8 @@ Action indices [0, 1, 2, 3] correspond to West, South, East and North.
 env.P[state][action] is a list of tuples (probability, nextstate, reward, terminated)
 E.g.:
 P[0][0] = [(0.3333333333333333, 0, 0.0, False), (0.3333333333333333, 0, 0.0, False), (0.3333333333333333, 4, 0.0, False)]
-env.nS - number of states
-env.nA - number of actions
-
+nS - number of states
+nA - number of actions
 """
 import gymnasium as gym
 import numpy as np
@@ -21,7 +20,7 @@ import matplotlib.pyplot as plt
 np.set_printoptions(precision=3)
 
 def convert_P(env):
-	# for complex case one can use sparse matrices, e.g. lil_array
+	# for more complicated case one can use sparse matrices, e.g. lil_array
 	# P(s_new|s, a) - indices: (s_old, action, s_new)
 	nA = env.action_space.n
 	nS = env.observation_space.n
@@ -45,7 +44,7 @@ def value_iteration(env, gamma, num_iter, verbose=True):
     Outputs:
         (value_functions, policies)
 
-    size(value_functions) == (num_iter+1, nS) and size(policies) == (num_iter, )
+    size(value_functions) == (num_iter+1, nS) and size(policies) == (num_iter, nS)
     """
     nS = env.observation_space.n
     V = np.zeros((num_iter+1, nS))
